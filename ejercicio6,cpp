@@ -1,2 +1,69 @@
 Este es el ejercicio 6
+#include <iostream>
+using namespace std;
+
+bool esPrimo(int numero) {
+    if (numero <= 1) return false;
+    if (numero == 2) return true;
+
+    for (int i = 2; i * i <= numero; i++) {
+        if (numero % i == 0) return false;
+    }
+
+    return true;
+}
+
+int main() {
+    int n;
+
+    cout << "Ingrese un número entero positivo: ";
+    cin >> n;
+
+    if (esPrimo(n)) {
+        cout << n << " es un número primo." << endl;
+    } else {
+        cout << n << " NO es un número primo." << endl;
+    }
+
+    return 0;
+}
 Añadir mejora
+#include <iostream>
+using namespace std;
+
+bool esPrimo(int numero) {
+    if (numero <= 1) return false;
+    if (numero == 2) return true;
+
+    for (int i = 2; i * i <= numero; i++) {
+        if (numero % i == 0) return false;
+    }
+
+    return true;
+}
+
+int main() {
+    int n;
+    int contadorPrimos = 0;
+
+    cout << "Ingrese un número entero positivo: ";
+    cin >> n;
+
+    if (esPrimo(n)) {
+        cout << n << " es un número primo." << endl;
+    } else {
+        cout << n << " NO es un número primo." << endl;
+    }
+
+    cout << "\nNúmeros primos menores o iguales a " << n << ":" << endl;
+    for (int i = 2; i <= n; i++) {
+        if (esPrimo(i)) {
+            cout << i << " ";
+            contadorPrimos++;
+        }
+    }
+
+    cout << "\nCantidad total de números primos encontrados: " << contadorPrimos << endl;
+
+    return 0;
+}
