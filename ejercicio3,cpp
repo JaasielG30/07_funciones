@@ -1,2 +1,111 @@
 Este es el ejercicio 3
+#include <iostream>
+using namespace std;
+
+void generarFibonacci(int cantidad) {
+    int a = 0, b = 1, siguiente;
+    int suma = 0;
+
+    cout << "Serie de Fibonacci (" << cantidad << " términos): ";
+
+    for (int i = 0; i < cantidad; ++i) {
+        cout << a << " ";
+        suma += a;
+        siguiente = a + b;
+        a = b;
+        b = siguiente;
+    }
+
+    cout << "\nSuma de los términos: " << suma << endl;
+}
+
+int main() {
+    int cantidad;
+
+    cout << "Ingrese la cantidad de términos que desea generar: ";
+    cin >> cantidad;
+
+    if (cantidad <= 0) {
+        cout << "La cantidad debe ser mayor que 0." << endl;
+        return 1;
+    }
+
+    generarFibonacci(cantidad);
+
+    return 0;
+}
 Añadir mejora
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+vector<int> generarFibonacci(int cantidad, int& suma) {
+    vector<int> serie;
+    int a = 0, b = 1, siguiente;
+
+    for (int i = 0; i < cantidad; ++i) {
+        serie.push_back(a);
+        suma += a;
+        siguiente = a + b;
+        a = b;
+        b = siguiente;
+    }
+
+    return serie;
+}
+
+void mostrarResultados(const vector<int>& serie, int suma) {
+    cout << "Serie de Fibonacci: ";
+    for (int num : serie) {
+        cout << num << " ";
+    }
+
+    double promedio = static_cast<double>(suma) / serie.size();
+
+    cout << "\nSuma de los términos: " << suma << endl;
+    cout << fixed << setprecision(2);
+    cout << "Promedio de los términos: " << promedio << endl;
+}
+
+void guardarEnArchivo(const vector<int>& serie, int suma) {
+    ofstream archivo("fibonacci_resultado.txt");
+
+    if (!archivo.is_open()) {
+        cerr << "Error al abrir el archivo para escribir." << endl;
+        return;
+    }
+
+    archivo << "Serie de Fibonacci: ";
+    for (int num : serie) {
+        archivo << num << " ";
+    }
+
+    double promedio = static_cast<double>(suma) / serie.size();
+
+    archivo << "\nSuma de los términos: " << suma;
+    archivo << "\nPromedio de los términos: " << fixed << setprecision(2) << promedio;
+
+    archivo.close();
+
+    cout << "Los resultados también se han guardado en 'fibonacci_resultado.txt'." << endl;
+}
+
+int main() {
+    int cantidad, suma = 0;
+
+    cout << "Ingrese la cantidad de términos que desea generar: ";
+    cin >> cantidad;
+
+    if (cantidad <= 0) {
+        cout << "La cantidad debe ser mayor que 0." << endl;
+        return 1;
+    }
+
+    vector<int> serie = generarFibonacci(cantidad, suma);
+    mostrarResultados(serie, suma);
+    guardarEnArchivo(serie, suma);
+
+    return 0;
+}
