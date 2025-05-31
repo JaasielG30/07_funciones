@@ -1,2 +1,73 @@
 Este es el ejercicio 4
+#include <iostream>
+using namespace std;
+
+bool esNumeroPerfecto(int n) {
+    int suma = 0;
+
+    for (int i = 1; i < n; i++) {
+        if (n % i == 0) {
+            suma += i;
+        }
+    }
+
+    return suma == n;
+}
+
+int main() {
+    int numero;
+    cout << "Introduce un número entero: ";
+    cin >> numero;
+
+    if (esNumeroPerfecto(numero)) {
+        cout << numero << " es un número perfecto." << endl;
+    } else {
+        cout << numero << " no es un número perfecto." << endl;
+    }
+
+    return 0;
+}
 Añadir mejora
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<int> obtenerDivisores(int n) {
+    vector<int> divisores;
+    for (int i = 1; i < n; i++) {
+        if (n % i == 0) {
+            divisores.push_back(i);
+        }
+    }
+    return divisores;
+}
+
+bool esNumeroPerfecto(int n, vector<int>& divisores) {
+    int suma = 0;
+    for (int d : divisores) {
+        suma += d;
+    }
+    return suma == n;
+}
+
+int main() {
+    int numero;
+    cout << "Introduce un número entero: ";
+    cin >> numero;
+
+    vector<int> divisores = obtenerDivisores(numero);
+
+    cout << "Divisores propios de " << numero << ": ";
+    for (int d : divisores) {
+        cout << d << " ";
+    }
+    cout << endl;
+
+    if (esNumeroPerfecto(numero, divisores)) {
+        cout << numero << " es un número perfecto." << endl;
+    } else {
+        cout << numero << " no es un número perfecto." << endl;
+    }
+
+    return 0;
+}
