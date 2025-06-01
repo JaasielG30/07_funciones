@@ -1,2 +1,62 @@
 Este es el ejercicio 7
+#include <iostream>
+using namespace std;
+
+long long factorial(int num) {
+    long long resultado = 1;
+    for (int i = 2; i <= num; i++) {
+        resultado *= i;
+    }
+    return resultado;
+}
+
+long long combinatorio(int m, int n) {
+    return factorial(m) / (factorial(n) * factorial(m - n));
+}
+
+int main() {
+    int m, n;
+    cout << "Introduce el valor de m: ";
+    cin >> m;
+    cout << "Introduce el valor de n: ";
+    cin >> n;
+
+    if (n > m || m < 0 || n < 0) {
+        cout << "Entrada inválida. Debe cumplirse 0 <= n <= m." << endl;
+    } else {
+        cout << "C(" << m << ", " << n << ") = " << combinatorio(m, n) << endl;
+    }
+
+    return 0;
+}
 Añadir mejora
+#include <iostream>
+using namespace std;
+
+unsigned long long combinatorio(int m, int n) {
+    if (n > m - n) {
+        n = m - n;
+    }
+    unsigned long long resultado = 1;
+    for (int i = 1; i <= n; ++i) {
+        resultado *= (m - i + 1);
+        resultado /= i;
+    }
+    return resultado;
+}
+
+int main() {
+    int m, n;
+    cout << "Introduce el valor de m: ";
+    cin >> m;
+    cout << "Introduce el valor de n: ";
+    cin >> n;
+
+    if (m < 0 || n < 0 || n > m) {
+        cout << "Entrada inválida. Debe cumplirse 0 <= n <= m." << endl;
+    } else {
+        cout << "C(" << m << ", " << n << ") = " << combinatorio(m, n) << endl;
+    }
+
+    return 0;
+}
