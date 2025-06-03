@@ -1,2 +1,109 @@
 Este es el ejercicio 8
+#include <iostream>
+using namespace std;
+
+int calcularMCD(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int calcularMCM(int a, int b) {
+    int mcd = calcularMCD(a, b);
+    return (a * b) / mcd;
+}
+
+int main() {
+    int num1, num2;
+    cout << "Introduce el primer número: ";
+    cin >> num1;
+    cout << "Introduce el segundo número: ";
+    cin >> num2;
+
+    if (num1 <= 0 || num2 <= 0) {
+        cout << "Ambos números deben ser mayores que cero." << endl;
+        return 1;
+    }
+
+    int mcd = calcularMCD(num1, num2);
+    int mcm = calcularMCM(num1, num2);
+
+    cout << "El Máximo Común Divisor (MCD) es: " << mcd << endl;
+    cout << "El Mínimo Común Múltiplo (MCM) es: " << mcm << endl;
+
+    return 0;
+}
 Añadir mejora
+#include <iostream>
+#include <limits>
+using namespace std;
+
+int calcularMCD(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int calcularMCM(int a, int b) {
+    int mcd = calcularMCD(a, b);
+    return (a * b) / mcd;
+}
+
+int leerNumeroPositivo(string mensaje) {
+    int num;
+    do {
+        cout << mensaje;
+        cin >> num;
+        if (cin.fail() || num <= 0) {
+            cout << "Entrada inválida. Ingresa un número entero positivo.\n";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+    } while (num <= 0);
+    return num;
+}
+
+int main() {
+    char continuar;
+    do {
+        int num1 = leerNumeroPositivo("Introduce el primer número: ");
+        int num2 = leerNumeroPositivo("Introduce el segundo número: ");
+
+        cout << "\n--- Menú de opciones ---\n";
+        cout << "1. Calcular MCD\n";
+        cout << "2. Calcular MCM\n";
+        cout << "3. Calcular ambos\n";
+        cout << "Selecciona una opción: ";
+        int opcion;
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                cout << "MCD(" << num1 << ", " << num2 << ") = " << calcularMCD(num1, num2) << "\n";
+                break;
+            case 2:
+                cout << "MCM(" << num1 << ", " << num2 << ") = " << calcularMCM(num1, num2) << "\n";
+                break;
+            case 3:
+                cout << "MCD(" << num1 << ", " << num2 << ") = " << calcularMCD(num1, num2) << "\n";
+                cout << "MCM(" << num1 << ", " << num2 << ") = " << calcularMCM(num1, num2) << "\n";
+                break;
+            default:
+                cout << "Opción no válida.\n";
+        }
+
+        cout << "\n¿Deseas realizar otra operación? (s/n): ";
+        cin >> continuar;
+        cout << endl;
+
+    } while (continuar == 's' || continuar == 'S');
+
+    cout << "Programa finalizado. ¡Hasta luego!\n";
+    return 0;
+}
